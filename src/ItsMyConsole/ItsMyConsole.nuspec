@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package >
+  <metadata>
+    <id>ItsMyConsole</id>
+    <version>0.1.0</version>
+    <title>ItsMyConsole</title>
+    <authors>Damien TARROZ</authors>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <license type="expression">MIT</license>
+    <projectUrl>https://github.com/dtarroz/ItsMyConsole</projectUrl>
+    <description>Personnalisation de ses propres commandes dans une application Console</description>
+    <copyright>Copyright ©  2021</copyright>
+    <tags>Console</tags>
+  </metadata>
+</package>
