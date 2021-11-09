@@ -2,7 +2,7 @@
 
 namespace ItsMyConsole
 {
-    internal class ConsolePattern
+    internal class CommandPattern
     {
         public string Pattern { get; set; }
         public RegexOptions RegexOptions { get; set; }

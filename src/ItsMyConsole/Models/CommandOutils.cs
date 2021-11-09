@@ -2,13 +2,13 @@
 
 namespace ItsMyConsole
 {
-    public class ConsoleAction
+    public class CommandOutils
     {
         public string Command { get; set; }
         public Match CommandMatch { get; set; }
         public string[] CommandArgs { get; set; }
         public AzureDevOps AzureDevOps { get; set; }
 
-        internal ConsoleAction() { }
+        internal CommandOutils() { }
     }
 }

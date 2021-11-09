@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 
 namespace ItsMyConsole
 {
@@ -9,11 +10,11 @@ namespace ItsMyConsole
     {
         private ConsoleOptions _options;
         private Action<ConsoleOptions> _configureOptions;
-        private readonly Dictionary<ConsolePattern, Action<ConsoleAction>> _actionCommands;
+        private readonly Dictionary<CommandPattern, object> _commandPatternCallbacks;
         private readonly List<AzureDevOpsServer> _azureDevOpsServers;
 
         public ConsoleCommandLineInterpreter() {
-            _actionCommands = new Dictionary<ConsolePattern, Action<ConsoleAction>>();
+            _commandPatternCallbacks = new Dictionary<CommandPattern, object>();
             _azureDevOpsServers = new List<AzureDevOpsServer>();
         }
 
@@ -22,6 +23,8 @@ namespace ItsMyConsole
         }
 
         public void AddAzureDevOpsServer(AzureDevOpsServer azureDevOpsServer) {
+            if (azureDevOpsServer == null)
+                throw new ArgumentNullException(nameof(azureDevOpsServer));
             if (_azureDevOpsServers.Any(a => a.Name == azureDevOpsServer.Name))
                 throw new ArgumentException("Nom déjà présent", nameof(azureDevOpsServer.Name));
             if (string.IsNullOrWhiteSpace(azureDevOpsServer.Url))
@@ -31,36 +34,45 @@ namespace ItsMyConsole
             _azureDevOpsServers.Add(azureDevOpsServer);
         }
 
-        public void AddCommand(string pattern, Action<ConsoleAction> command) {
-            ThrowIfPatternAndActionInvalid(pattern, command);
-            _actionCommands.Add(new ConsolePattern {
-                                    Pattern = pattern,
-                                }, command);
+        public void AddCommand(string pattern, Action<CommandOutils> callback) {
+            AddPatternAndCallback(pattern, RegexOptions.None, callback);
         }
 
-        public void AddCommand(string pattern, RegexOptions regexOptions, Action<ConsoleAction> command) {
-            ThrowIfPatternAndActionInvalid(pattern, command);
-            _actionCommands.Add(new ConsolePattern {
-                                    Pattern = pattern,
-                                    RegexOptions = regexOptions
-                                }, command);
+        public void AddCommand(string pattern, Func<CommandOutils, Task> callback) {
+            AddPatternAndCallback(pattern, RegexOptions.None, callback);
         }
 
-        private void ThrowIfPatternAndActionInvalid(string pattern, object command) {
+        public void AddCommand(string pattern, RegexOptions regexOptions, Action<CommandOutils> callback) {
+            AddPatternAndCallback(pattern, regexOptions, callback);
+        }
+
+        public void AddCommand(string pattern, RegexOptions regexOptions, Func<CommandOutils, Task> callback) {
+            AddPatternAndCallback(pattern, regexOptions, callback);
+        }
+
+        private void AddPatternAndCallback(string pattern, RegexOptions regexOptions, object callback) {
+            ThrowIfPatternAndCallbackInvalid(pattern, callback);
+            _commandPatternCallbacks.Add(new CommandPattern {
+                                             Pattern = pattern,
+                                             RegexOptions = regexOptions
+                                         }, callback);
+        }
+
+        private void ThrowIfPatternAndCallbackInvalid(string pattern, object command) {
             if (pattern == null)
                 throw new ArgumentNullException(nameof(pattern));
             if (command == null)
                 throw new ArgumentNullException(nameof(command));
-            if (_actionCommands.Keys.Any(k => k.Pattern == pattern))
+            if (_commandPatternCallbacks.Keys.Any(k => k.Pattern == pattern))
                 throw new ArgumentException("Pattern déjà présent", nameof(pattern));
         }
 
-        public void Run() {
+        public async Task RunAsync() {
             ConfigureOptions();
             ShowHeader();
             string command = WaitNextCommand();
             while (!IsExitCommand(command)) {
-                RunCommand(command);
+                await RunCommandAsync(command);
                 ShowLineBreakBetweenCommands();
                 command = WaitNextCommand();
             }
@@ -103,18 +115,16 @@ namespace ItsMyConsole
             return command.Equals("exit", StringComparison.OrdinalIgnoreCase);
         }
 
-        private void RunCommand(string command) {
+        private async Task RunCommandAsync(string command) {
             try {
-                foreach (var actionCommand in _actionCommands) {
-                    Match match = Regex.Match(command, actionCommand.Key.Pattern, actionCommand.Key.RegexOptions);
+                foreach (var (commandPattern, callback) in _commandPatternCallbacks.Select(x => (x.Key, x.Value))) {
+                    Match match = Regex.Match(command, commandPattern.Pattern, commandPattern.RegexOptions);
                     if (match.Success) {
-                        actionCommand.Value.Invoke(new ConsoleAction {
-                                                       Command = command,
-                                                       CommandMatch = match,
-                                                       CommandArgs =
-                                                           command.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries),
-                                                       AzureDevOps = new AzureDevOps(_azureDevOpsServers)
-                                                   });
+                        CommandOutils outils = CreateOutils(command, match);
+                        if (callback is Func<CommandOutils, Task> funcAync)
+                            await funcAync(outils);
+                        else if (callback is Action<CommandOutils> action)
+                            action(outils);
                         return;
                     }
                 }
@@ -123,6 +133,15 @@ namespace ItsMyConsole
             catch (Exception ex) {
                 Console.WriteLine("Erreur : " + ex.Message);
             }
+        }
+
+        private CommandOutils CreateOutils(string command, Match commandMatch) {
+            return new CommandOutils {
+                Command = command,
+                CommandMatch = commandMatch,
+                CommandArgs = command.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries),
+                AzureDevOps = new AzureDevOps(_azureDevOpsServers)
+            };
         }
 
         private void ShowLineBreakBetweenCommands() {

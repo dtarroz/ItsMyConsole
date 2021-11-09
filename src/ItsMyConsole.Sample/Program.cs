@@ -1,11 +1,14 @@
-﻿using System.Diagnostics;
+﻿using Microsoft.TeamFoundation.WorkItemTracking.WebApi.Models;
+using System;
+using System.Diagnostics;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 
 namespace ItsMyConsole.Sample
 {
     class Program
     {
-        static void Main() {
+        static async Task Main() {
             ConsoleCommandLineInterpreter ccli = new ConsoleCommandLineInterpreter();
 
             ccli.Configure(options => {
@@ -15,18 +18,25 @@ namespace ItsMyConsole.Sample
                 options.TrimCommand = true;
             });
 
-            ccli.AddCommand("^g (.+)$", RegexOptions.IgnoreCase, action => {
-                string search = action.CommandMatch.Groups[1].Value.Replace(" ", "+");
+            ccli.AddAzureDevOpsServer(new AzureDevOpsServer
+            {
+                Name = "TEST",
+                Url = "https://<SERVEUR>",
+                PersonalAccessToken = "<TOKEN>"
+            });
+
+            ccli.AddCommand("^g (.+)$", RegexOptions.IgnoreCase, outils => {
+                string search = outils.CommandMatch.Groups[1].Value.Replace(" ", "+");
                 Process.Start($"https://www.google.fr/search?q={search}");
             });
 
-            /*ccli.AddCommand("^wi [0-9]*$", async action => {
-                int workItemId = Convert.ToInt32(action.CommandArgs[1]);
-                object workitem = await action.AzureDevOps.GetWorkItemAsync(workItemId);
-                Console.WriteLine($"WI {workItemId} - <TITLE>");
-            });*/
+            ccli.AddCommand("^wi [0-9]*$", async outils => {
+                int workItemId = Convert.ToInt32(outils.CommandArgs[1]);
+                WorkItem workItem = await outils.AzureDevOps.GetWorkItemAsync("TEST", workItemId);
+                Console.WriteLine($"WI {workItemId} - {workItem.Fields["System.Title"]}");
+            });
 
-            ccli.Run();
+            await ccli.RunAsync();
         }
     }
 }
