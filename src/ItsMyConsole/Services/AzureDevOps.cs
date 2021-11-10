@@ -21,8 +21,8 @@ namespace ItsMyConsole
         }
 
         public async Task<WorkItem> GetWorkItemAsync(string azureDevOpsName, int workItemId, WorkItemExpand? expand = null) {
-            WorkItemTrackingHttpClient workItemTrackingHttpClient = GetWorkItemTrackingHttpClient(azureDevOpsName);
-            return await workItemTrackingHttpClient.GetWorkItemAsync(workItemId, expand: expand);
+            using (WorkItemTrackingHttpClient workItemTrackingHttpClient = GetWorkItemTrackingHttpClient(azureDevOpsName))
+                return await workItemTrackingHttpClient.GetWorkItemAsync(workItemId, expand: expand);
         }
 
         private WorkItemTrackingHttpClient GetWorkItemTrackingHttpClient(string azureDevOpsName) {
