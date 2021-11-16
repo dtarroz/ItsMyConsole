@@ -2,6 +2,9 @@
 
 namespace ItsMyConsole
 {
+    /// <summary>
+    /// Outils accessible pendant l'éxécution de la ligne de commande
+    /// </summary>
     public class CommandTools
     {
         /// <summary>

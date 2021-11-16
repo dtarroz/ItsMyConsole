@@ -1,5 +1,8 @@
 ﻿namespace ItsMyConsole
 {
+    /// <summary>
+    /// Information sur un serveur Azure Dev Ops
+    /// </summary>
     public class AzureDevOpsServer
     {
         /// <summary>

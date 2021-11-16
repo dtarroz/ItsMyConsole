@@ -55,8 +55,8 @@ namespace ItsMyConsole
         /// <param name="azureDevOpsName">Le nom du serveur Azure Dev Ops qui a été configuré</param>
         /// <param name="project">Le nom du projet</param>
         /// <param name="team">Le nom de l'équipe</param>
-        public async Task<List<TeamSettingsIteration>> GetCurrentTeamIterationsAsync(string azureDevOpsName, string project, string team = null)
-        {
+        public async Task<List<TeamSettingsIteration>> GetCurrentTeamIterationsAsync(
+            string azureDevOpsName, string project, string team = null) {
             using (WorkHttpClient workHttpClient = GetWorkHttpClient(azureDevOpsName))
                 return await workHttpClient.GetTeamIterationsAsync(new TeamContext(project, team), "Current");
         }

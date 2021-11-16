@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace ItsMyConsole
 {
+    /// <summary>
+    /// Framework pour une application console qui facilite l'implémentation d'interpréteur de commande
+    /// </summary>
     public class ConsoleCommandLineInterpreter
     {
         private ConsoleOptions _options;
@@ -13,6 +16,9 @@ namespace ItsMyConsole
         private readonly Dictionary<CommandPattern, object> _commandPatternCallbacks;
         private readonly List<AzureDevOpsServer> _azureDevOpsServers;
 
+        /// <summary>
+        /// Framework pour une application console qui facilite l'implémentation d'interpréteur de commande
+        /// </summary>
         public ConsoleCommandLineInterpreter() {
             _commandPatternCallbacks = new Dictionary<CommandPattern, object>();
             _azureDevOpsServers = new List<AzureDevOpsServer>();

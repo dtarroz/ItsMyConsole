@@ -1,5 +1,8 @@
 ﻿namespace ItsMyConsole
 {
+    /// <summary>
+    /// Options de configuration de la console
+    /// </summary>
     public class ConsoleOptions
     {
         /// <summary>
