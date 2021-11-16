@@ -18,10 +18,18 @@ namespace ItsMyConsole
             _azureDevOpsServers = new List<AzureDevOpsServer>();
         }
 
+        /// <summary>
+        /// Configuration des options d'affichages de la console
+        /// </summary>
+        /// <param name="configureOptions">Les options d'affichage de la console</param>
         public void Configure(Action<ConsoleOptions> configureOptions) {
             _configureOptions = configureOptions;
         }
 
+        /// <summary>
+        /// Configuration d'un serveur Azure Dev Ops pour son utilisation pendant l'exécution d'une ligne de commande
+        /// </summary>
+        /// <param name="azureDevOpsServer">Les informations d'un serveur Azure Dev Ops</param>
         public void AddAzureDevOpsServer(AzureDevOpsServer azureDevOpsServer) {
             if (azureDevOpsServer == null)
                 throw new ArgumentNullException(nameof(azureDevOpsServer));
@@ -34,19 +42,41 @@ namespace ItsMyConsole
             _azureDevOpsServers.Add(azureDevOpsServer);
         }
 
-        public void AddCommand(string pattern, Action<CommandOutils> callback) {
+        /// <summary>
+        /// L'ajout de l'interprétation d'une ligne de commande et de son exécution
+        /// </summary>
+        /// <param name="pattern">L'expression réguliére d'interprétation de la ligne de commande</param>
+        /// <param name="callback">L'exécution de la ligne de commande</param>
+        public void AddCommand(string pattern, Action<CommandTools> callback) {
             AddPatternAndCallback(pattern, RegexOptions.None, callback);
         }
 
-        public void AddCommand(string pattern, Func<CommandOutils, Task> callback) {
+        /// <summary>
+        /// L'ajout de l'interprétation d'une ligne de commande et de son exécution
+        /// </summary>
+        /// <param name="pattern">L'expression réguliére d'interprétation de la ligne de commande</param>
+        /// <param name="callback">L'exécution de la ligne de commande</param>
+        public void AddCommand(string pattern, Func<CommandTools, Task> callback) {
             AddPatternAndCallback(pattern, RegexOptions.None, callback);
         }
 
-        public void AddCommand(string pattern, RegexOptions regexOptions, Action<CommandOutils> callback) {
+        /// <summary>
+        /// L'ajout de l'interprétation d'une ligne de commande et de son exécution
+        /// </summary>
+        /// <param name="pattern">L'expression réguliére d'interprétation de la ligne de commande</param>
+        /// <param name="regexOptions">Combinaison d'opérations de bits des valeurs d'énumération qui fournissent des options pour la correspondance</param>
+        /// <param name="callback">L'exécution de la ligne de commande</param>
+        public void AddCommand(string pattern, RegexOptions regexOptions, Action<CommandTools> callback) {
             AddPatternAndCallback(pattern, regexOptions, callback);
         }
 
-        public void AddCommand(string pattern, RegexOptions regexOptions, Func<CommandOutils, Task> callback) {
+        /// <summary>
+        /// L'ajout de l'interprétation d'une ligne de commande et de son exécution
+        /// </summary>
+        /// <param name="pattern">L'expression réguliére d'interprétation de la ligne de commande</param>
+        /// <param name="regexOptions">Combinaison d'opérations de bits des valeurs d'énumération qui fournissent des options pour la correspondance</param>
+        /// <param name="callback">L'exécution de la ligne de commande</param>
+        public void AddCommand(string pattern, RegexOptions regexOptions, Func<CommandTools, Task> callback) {
             AddPatternAndCallback(pattern, regexOptions, callback);
         }
 
@@ -67,6 +97,9 @@ namespace ItsMyConsole
                 throw new ArgumentException("Pattern déjà présent", nameof(pattern));
         }
 
+        /// <summary>
+        /// Lance de la console en attente des lignes de commandes
+        /// </summary>
         public async Task RunAsync() {
             ConfigureOptions();
             ShowHeader();
@@ -120,11 +153,11 @@ namespace ItsMyConsole
                 foreach (var (commandPattern, callback) in _commandPatternCallbacks.Select(x => (x.Key, x.Value))) {
                     Match match = Regex.Match(command, commandPattern.Pattern, commandPattern.RegexOptions);
                     if (match.Success) {
-                        CommandOutils outils = CreateOutils(command, match);
-                        if (callback is Func<CommandOutils, Task> funcAync)
-                            await funcAync(outils);
-                        else if (callback is Action<CommandOutils> action)
-                            action(outils);
+                        CommandTools tools = CreateTools(command, match);
+                        if (callback is Func<CommandTools, Task> funcAync)
+                            await funcAync(tools);
+                        else if (callback is Action<CommandTools> action)
+                            action(tools);
                         return;
                     }
                 }
@@ -135,12 +168,12 @@ namespace ItsMyConsole
             }
         }
 
-        private CommandOutils CreateOutils(string command, Match commandMatch) {
-            return new CommandOutils {
+        private CommandTools CreateTools(string command, Match commandMatch) {
+            return new CommandTools {
                 Command = command,
                 CommandMatch = commandMatch,
                 CommandArgs = command.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries),
-                AzureDevOps = new AzureDevOps(_azureDevOpsServers)
+                AzureDevOps = new AzureDevOpsTools(_azureDevOpsServers)
             };
         }
 

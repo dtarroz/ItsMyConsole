@@ -8,8 +8,11 @@
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <license type="expression">MIT</license>
     <projectUrl>https://github.com/dtarroz/ItsMyConsole</projectUrl>
-    <description>Personnalisation de ses propres commandes dans une application Console</description>
+    <description>Framework pour une application console qui facilite l'implémentation d'interpréteur de commande</description>
     <copyright>Copyright ©  2021</copyright>
-    <tags>Console</tags>
+    <tags>console cli</tags>
+	<dependencies>
+      <group targetFramework="net472" />
+    </dependencies>
   </metadata>
 </package>

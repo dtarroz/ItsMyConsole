@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 // l'ensemble d'attributs suivant. Changez les valeurs de ces attributs pour modifier les informations
 // associées à un assembly.
 [assembly: AssemblyTitle("ItsMyConsole")]
-[assembly: AssemblyDescription("Personnalisation de ses propres commandes dans une application Console")]
+[assembly: AssemblyDescription("Framework pour une application console qui facilite l'implémentation d'interpréteur de commande")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Damien TARROZ")]
 [assembly: AssemblyProduct("ItsMyConsole")]

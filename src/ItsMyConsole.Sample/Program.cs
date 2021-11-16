@@ -18,6 +18,7 @@ namespace ItsMyConsole.Sample
                 options.TrimCommand = true;
             });
 
+
             ccli.AddAzureDevOpsServer(new AzureDevOpsServer
             {
                 Name = "TEST",
@@ -25,14 +26,15 @@ namespace ItsMyConsole.Sample
                 PersonalAccessToken = "<TOKEN>"
             });
 
-            ccli.AddCommand("^g (.+)$", RegexOptions.IgnoreCase, outils => {
-                string search = outils.CommandMatch.Groups[1].Value.Replace(" ", "+");
+
+            ccli.AddCommand("^g (.+)$", RegexOptions.IgnoreCase, tools => {
+                string search = tools.CommandMatch.Groups[1].Value.Replace(" ", "+");
                 Process.Start($"https://www.google.fr/search?q={search}");
             });
 
-            ccli.AddCommand("^wi [0-9]*$", async outils => {
-                int workItemId = Convert.ToInt32(outils.CommandArgs[1]);
-                WorkItem workItem = await outils.AzureDevOps.GetWorkItemAsync("TEST", workItemId);
+            ccli.AddCommand("^wi [0-9]*$", async tools => {
+                int workItemId = Convert.ToInt32(tools.CommandArgs[1]);
+                WorkItem workItem = await tools.AzureDevOps.GetWorkItemAsync("TEST", workItemId);
                 Console.WriteLine($"WI {workItemId} - {workItem.Fields["System.Title"]}");
             });
 
