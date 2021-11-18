@@ -117,6 +117,7 @@
   <ItemGroup>
     <Compile Include="ConsoleCommandLineInterpreter.cs" />
     <Compile Include="Models\AzureDevOps\AzureDevOpsServer.cs" />
+    <Compile Include="Models\AzureDevOps\WorkItemFields.cs" />
     <Compile Include="Models\CommandTools.cs" />
     <Compile Include="Models\ConsoleOptions.cs" />
     <Compile Include="Models\CommandPattern.cs" />
