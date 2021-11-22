@@ -14,14 +14,12 @@ namespace ItsMyConsole
         private ConsoleOptions _options;
         private Action<ConsoleOptions> _configureOptions;
         private readonly Dictionary<CommandPattern, object> _commandPatternCallbacks;
-        private readonly List<AzureDevOpsServer> _azureDevOpsServers;
 
         /// <summary>
         /// Framework pour une application console qui facilite l'implémentation d'interpréteur de commande
         /// </summary>
         public ConsoleCommandLineInterpreter() {
             _commandPatternCallbacks = new Dictionary<CommandPattern, object>();
-            _azureDevOpsServers = new List<AzureDevOpsServer>();
         }
 
         /// <summary>
@@ -30,22 +28,6 @@ namespace ItsMyConsole
         /// <param name="configureOptions">Les options d'affichage de la console</param>
         public void Configure(Action<ConsoleOptions> configureOptions) {
             _configureOptions = configureOptions;
-        }
-
-        /// <summary>
-        /// Configuration d'un serveur Azure Dev Ops pour son utilisation pendant l'exécution d'une ligne de commande
-        /// </summary>
-        /// <param name="azureDevOpsServer">Les informations d'un serveur Azure Dev Ops</param>
-        public void AddAzureDevOpsServer(AzureDevOpsServer azureDevOpsServer) {
-            if (azureDevOpsServer == null)
-                throw new ArgumentNullException(nameof(azureDevOpsServer));
-            if (_azureDevOpsServers.Any(a => a.Name == azureDevOpsServer.Name))
-                throw new ArgumentException("Nom déjà présent", nameof(azureDevOpsServer.Name));
-            if (string.IsNullOrWhiteSpace(azureDevOpsServer.Url))
-                throw new ArgumentException("Url obligatoire", nameof(azureDevOpsServer.Url));
-            if (string.IsNullOrWhiteSpace(azureDevOpsServer.PersonalAccessToken))
-                throw new ArgumentException("Token personnel obligatoire", nameof(azureDevOpsServer.PersonalAccessToken));
-            _azureDevOpsServers.Add(azureDevOpsServer);
         }
 
         /// <summary>
@@ -174,12 +156,11 @@ namespace ItsMyConsole
             }
         }
 
-        private CommandTools CreateTools(string command, Match commandMatch) {
+        private static CommandTools CreateTools(string command, Match commandMatch) {
             return new CommandTools {
                 Command = command,
                 CommandMatch = commandMatch,
                 CommandArgs = command.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries),
-                AzureDevOps = new AzureDevOpsTools(_azureDevOpsServers)
             };
         }
 

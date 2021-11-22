@@ -23,11 +23,6 @@ namespace ItsMyConsole
         /// </summary>
         public string[] CommandArgs { get; set; }
 
-        /// <summary>
-        /// L'accès aux serveurs Azure Dev Ops configurés
-        /// </summary>
-        public AzureDevOpsTools AzureDevOps { get; set; }
-
         internal CommandTools() { }
     }
 }
