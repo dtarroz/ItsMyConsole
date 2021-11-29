@@ -1,3 +1,5 @@
+![Logo](docs/logo.png)
+
 # ItsMyConsole
 
 Framework pour application Console .Net pour la construction d'interpréteur de ligne de commande interne.
