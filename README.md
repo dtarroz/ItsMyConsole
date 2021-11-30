@@ -8,7 +8,7 @@ Framework pour application Console .Net pour la construction d'interpréteur de 
 - [Pourquoi faire ?](#pourquoi-faire-)
 - [Getting Started](#getting-started)
 - [Configurer les options](#configurer-les-options)
-- [Configurer les interprétations de commande](#configurer-les-interprétations-de-commande)
+- [Ajouter des interprétations de commande](#ajouter-des-interprétations-de-commande)
 - [Commande "exit"](#commande-exit)
 - [Outils](#outils)
 - [Comment créer ses propres Outils ?](#comment-créer-ses-propres-outils-)
@@ -92,10 +92,31 @@ Lors de l'exécution de la Console, si on saisie une commande qui commence par *
 Maintenant que l'on a configuré la Console et l'implémention de l'action associée au pattern ```^sw (.*)$```, l'utilisation de ```RunAsync``` lance la mise en attente d'une saisie de commande par l'utilisateur.
 
 ## Configurer les options
-*coming soon*
 
-## Configurer les interprétations de commande
-*coming soon*
+Vous pouvez configurer les options de la Console en utilisant ```Configure```.
+
+| Nom de l'option | Description | Valeur par défaut |
+| :-------------- | :---------- | :---------------: |
+| Prompt | Texte du prompt qui est affiché à gauche de la ligne de commande en attente de saisie | ">" |
+| LineBreakBetweenCommands | Indicateur de présence de saut de ligne entre les lignes de commande | false |
+| HeaderText | Texte de l'entête de la console affiche en premier avant l'attente de la première commande | "" |
+| TrimCommand | Indicateur pour effectuer un trim en début et en fin de la ligne de commande avant son exécution | true |
+
+```cs
+ConsoleCommandLineInterpreter ccli = new ConsoleCommandLineInterpreter();
+
+// Console configuration 
+ccli.Configure(options =>
+{
+    options.Prompt = ">> ";
+    options.LineBreakBetweenCommands = true;
+    options.HeaderText = "###################\n#  Hello, world!  #\n###################\n";
+});
+```
+
+## Ajouter des interprétations de commande
+
+Vous pouvez ajouter des interprétations de commande en utilisant ```AddCommand```.
 
 ## Commande "exit"
 *coming soon*
