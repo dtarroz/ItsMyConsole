@@ -10,7 +10,7 @@ Framework pour application Console .Net pour la construction d'interpréteur de 
 - [Configurer les options](#configurer-les-options)
 - [Ajouter des interprétations de commande](#ajouter-des-interprétations-de-commande)
 - [Commande "exit"](#commande-exit)
-- [Outils](#outils)
+- [Ajouter d'autres Outils](#ajouter-dautres-outils)
 - [Comment créer ses propres Outils ?](#comment-créer-ses-propres-outils-)
 
 ## Pourquoi faire ?
@@ -118,11 +118,45 @@ ccli.Configure(options =>
 
 Vous pouvez ajouter des interprétations de commande en utilisant ```AddCommand```.
 
-## Commande "exit"
-*coming soon*
+| Nom de l'argument | Description |
+| :---------------- | :---------- |
+| pattern | L'expression régulière d'interprétation de la ligne de commande. [Aide Mémoire](https://docs.microsoft.com/fr-fr/dotnet/standard/base-types/regular-expression-language-quick-reference) |
+| regexOptions | *(facultatif)*<br/><br/>Combinaison d'opérations de bits des valeurs d'énumération qui fournissent des options pour la correspondance de l'expression régulière. *(exemple ```RegexOptions.IgnoreCase```)* [Lien vers la documentation](https://docs.microsoft.com/fr-fr/dotnet/api/system.text.regularexpressions.regexoptions?view=netstandard-2.0) |
+| callback | L'action (ou la fonction async) pour l'exécution de la commande associé au pattern |
 
-## Outils
-*coming soon*
+```cs
+ConsoleCommandLineInterpreter ccli = new ConsoleCommandLineInterpreter();
+
+// Simple action with ignore case pattern
+ccli.AddCommand("^sw (.+)$", RegexOptions.IgnoreCase, tools =>
+{
+    // Insert your code here
+});
+
+// Simple function async without regex option
+ccli.AddCommand("^delay$", async tools =>
+{
+    await Task.Delay(1000);  // await example
+    // Insert your code here
+});
+```
+
+Dans l'implémentation de l'action, vous avez accès à des outils *(nommé ```tools``` dans l'exemple ci-dessus)*. Les outils par défaut sont une aide pour l'interprétation de la ligne de commande saisie mais Il est possible d'ajouter d'autres **"outils"** avec NuGet ([exemples](#ajouter-dautres-outils)). Vous avez aussi la possibilité [d'en créer vous même](#comment-créer-ses-propres-outils-).
+
+| Nom de l'outil | Description |
+| :------------- | :---------- |
+| Command | La ligne de commande saisie par l'utilisateur |
+| CommandMatch | Le résultat du Match de l'expression régulière de la ligne de commande |
+| CommandArgs | La liste des arguments de la ligne de commande. Le caractère ```" "``` est le séparateur. |
+
+## Commande "exit"
+Pour fermer l'application Console, vous avez par défaut l'interprétation de la commande ```exit``` *(insensible à la casse)* inclus dans le Framework.
+
+## Ajouter d'autres Outils
+Vous pouvez ajouter d'autres outils pour étendre et simplifier vos implémentations d'actions de vos commandes :
+
+- *(coming soon)* [Azure Dev Ops]() : Création et modification des WorkItems sur Azure Dev Ops 
+- *(coming soon)* [Cache Global]() : Cache accessible par toutes les actions des commandes
 
 ## Comment créer ses propres Outils ?
 *coming soon*
