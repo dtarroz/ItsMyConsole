@@ -99,7 +99,7 @@ Vous pouvez configurer les options de la Console en utilisant ```Configure```.
 | :-------------- | :---------- | :---------------: |
 | Prompt | Texte du prompt qui est affiché à gauche de la ligne de commande en attente de saisie | ">" |
 | LineBreakBetweenCommands | Indicateur de présence de saut de ligne entre les lignes de commande | false |
-| HeaderText | Texte de l'entête de la console affiche en premier avant l'attente de la première commande | "" |
+| HeaderText | Texte de l'entête de la console qui s'affiche en premier avant l'attente de la première commande | "" |
 | TrimCommand | Indicateur pour effectuer un trim en début et en fin de la ligne de commande avant son exécution | true |
 
 ```cs
