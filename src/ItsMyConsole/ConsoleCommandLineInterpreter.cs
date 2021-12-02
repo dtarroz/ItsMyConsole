@@ -33,7 +33,7 @@ namespace ItsMyConsole
         /// <summary>
         /// L'ajout de l'interprétation d'une ligne de commande et de son exécution
         /// </summary>
-        /// <param name="pattern">L'expression réguliére d'interprétation de la ligne de commande</param>
+        /// <param name="pattern">L'expression régulière d'interprétation de la ligne de commande</param>
         /// <param name="callback">L'exécution de la ligne de commande</param>
         public void AddCommand(string pattern, Action<CommandTools> callback) {
             AddPatternAndCallback(pattern, RegexOptions.None, callback);
@@ -42,7 +42,7 @@ namespace ItsMyConsole
         /// <summary>
         /// L'ajout de l'interprétation d'une ligne de commande et de son exécution
         /// </summary>
-        /// <param name="pattern">L'expression réguliére d'interprétation de la ligne de commande</param>
+        /// <param name="pattern">L'expression régulière d'interprétation de la ligne de commande</param>
         /// <param name="callback">L'exécution de la ligne de commande</param>
         public void AddCommand(string pattern, Func<CommandTools, Task> callback) {
             AddPatternAndCallback(pattern, RegexOptions.None, callback);
@@ -51,7 +51,7 @@ namespace ItsMyConsole
         /// <summary>
         /// L'ajout de l'interprétation d'une ligne de commande et de son exécution
         /// </summary>
-        /// <param name="pattern">L'expression réguliére d'interprétation de la ligne de commande</param>
+        /// <param name="pattern">L'expression régulière d'interprétation de la ligne de commande</param>
         /// <param name="regexOptions">Combinaison d'opérations de bits des valeurs d'énumération qui fournissent des options pour la correspondance</param>
         /// <param name="callback">L'exécution de la ligne de commande</param>
         public void AddCommand(string pattern, RegexOptions regexOptions, Action<CommandTools> callback) {
@@ -61,7 +61,7 @@ namespace ItsMyConsole
         /// <summary>
         /// L'ajout de l'interprétation d'une ligne de commande et de son exécution
         /// </summary>
-        /// <param name="pattern">L'expression réguliére d'interprétation de la ligne de commande</param>
+        /// <param name="pattern">L'expression régulière d'interprétation de la ligne de commande</param>
         /// <param name="regexOptions">Combinaison d'opérations de bits des valeurs d'énumération qui fournissent des options pour la correspondance</param>
         /// <param name="callback">L'exécution de la ligne de commande</param>
         public void AddCommand(string pattern, RegexOptions regexOptions, Func<CommandTools, Task> callback) {

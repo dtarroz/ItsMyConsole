@@ -10,18 +10,18 @@ namespace ItsMyConsole
         /// <summary>
         /// La ligne de commande saisie par l'utilisateur
         /// </summary>
-        public string Command { get; set; }
+        public string Command { get; internal set; }
 
         /// <summary>
-        /// Le résultat du Match de l'expression réguliére de la ligne de commande
+        /// Le résultat du Match de l'expression régulière de la ligne de commande
         /// </summary>
-        public Match CommandMatch { get; set; }
+        public Match CommandMatch { get; internal set; }
 
         /// <summary>
-        /// La liste des arguments de la ligne de commande
-        /// Le caractère "espace" est le séparateur
+        /// La liste des arguments de la ligne de commande.<br/>
+        /// Le caractère " " est le séparateur.
         /// </summary>
-        public string[] CommandArgs { get; set; }
+        public string[] CommandArgs { get; internal set; }
 
         internal CommandTools() { }
     }
