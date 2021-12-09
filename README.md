@@ -83,7 +83,7 @@ Voici le résultat attendu lors de l'utilisation de la Console :
 
 ![MyExampleProject](docs/MyExampleProject.png) 
 
-Dans cet exemple de code, on a configuré avec ```Configure``` le prompt d’attente des commandes ```options.Prompt```, la présence d'un saut de ligne entre les saisies ```options.LineBreakBetweenCommands``` et l’en-tête affichée au lancement ```options.HeaderText```. 
+Dans cet exemple de code on a configuré avec ```Configure```, le prompt d’attente des commandes ```options.Prompt```, la présence d'un saut de ligne entre les saisies ```options.LineBreakBetweenCommands``` et l’en-tête affichée au lancement ```options.HeaderText```. 
 
 Puis avec ```AddCommand```, on a ajouté un pattern d’interprétation des lignes de commande ```^sw (.*)$``` *(commence par **"sw"** puis on capture le reste de la commande)* qui est insensible à la casse ```RegexOptions.IgnoreCase```.
 
@@ -155,7 +155,7 @@ Pour fermer l'application Console, vous avez par défaut l'interprétation de la
 ## Ajouter d'autres Outils
 Vous pouvez ajouter d'autres outils pour étendre et simplifier vos implémentations d'actions de vos commandes :
 
-- *(coming soon)* [Azure Dev Ops]() : Création et modification des WorkItems sur Azure Dev Ops 
+- [Azure Dev Ops](https://github.com/dtarroz/ItsMyConsole.Tools.AzureDevOps) : Création et modification des WorkItems sur Azure Dev Ops 
 - *(coming soon)* [Cache Global]() : Cache accessible par toutes les actions des commandes
 
 ## Comment créer ses propres Outils ?
