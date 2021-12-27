@@ -156,7 +156,7 @@ Pour fermer l'application Console, vous avez par défaut l'interprétation de la
 Vous pouvez ajouter d'autres outils pour étendre et simplifier vos implémentations d'actions de vos commandes :
 
 - [Azure Dev Ops](https://github.com/dtarroz/ItsMyConsole.Tools.AzureDevOps) : Création et modification des WorkItems sur Azure Dev Ops 
-- *(coming soon)* [Cache Global]() : Cache accessible par toutes les actions des commandes
+- [Cache Global](https://github.com/dtarroz/ItsMyConsole.Tools.GlobalCache) : Cache accessible par toutes les actions des commandes
 
 ## Comment créer ses propres Outils ?
 *coming soon*
