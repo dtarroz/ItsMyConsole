@@ -87,7 +87,7 @@ Puis avec ```AddCommand```, on a ajouté un pattern d’interprétation des lign
 
 Lors de l'exécution de la Console, si on saisie une commande qui commence par **"sw"** avec du contenu à la suite, il lancera l'implémentation de l'action associée. Dans cet exemple, il récupère le reste de la commande en utilisant ```tools.CommandMatch``` depuis les outils disponibles *(résultat du Match de l'expression régulière)* pour faire une recherche sur les personnages de l'univers Star Wars depuis une API dédiée *(seulement les premiers résultats)*. Avec les informations récupérées, il affiche les noms des personnages dans la Console.
 
-Maintenant que l'on a configuré la Console et l'implémention de l'action associée au pattern ```^sw (.*)$```, l'utilisation de ```RunAsync``` lance la mise en attente d'une saisie de commande par l'utilisateur.
+Maintenant que l'on a configuré la Console et l'implémentation de l'action associée au pattern ```^sw (.*)$```, l'utilisation de ```RunAsync``` lance la mise en attente d'une saisie de commande par l'utilisateur.
 
 ## Configurer les options
 
