@@ -53,8 +53,7 @@ namespace MyExampleConsole
             ConsoleCommandLineInterpreter ccli = new ConsoleCommandLineInterpreter();
 
             // Console configuration 
-            ccli.Configure(options =>
-            {
+            ccli.Configure(options => {
                 options.Prompt = ">> ";
                 options.LineBreakBetweenCommands = true;
                 options.HeaderText = "###################\n#  Hello, world!  #\n###################\n";
@@ -62,8 +61,7 @@ namespace MyExampleConsole
 
             // Star Wars API (SWAPI) find person command implementation [Only results from page 1] 
             // Example : sw sky
-            ccli.AddCommand("^sw (.+)$", RegexOptions.IgnoreCase, async tools =>
-            {
+            ccli.AddCommand("^sw (.+)$", RegexOptions.IgnoreCase, async tools => {
                 string search = tools.CommandMatch.Groups[1].Value;
                 HttpResponseMessage response = await _httpClient.GetAsync($"https://swapi.dev/api/people?search={search}");
                 response.EnsureSuccessStatusCode();
