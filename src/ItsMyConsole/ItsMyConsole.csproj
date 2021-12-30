@@ -19,6 +19,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Include="..\..\docs\logo.png" Pack="true" PackagePath="" />
     <None Remove="ItsMyConsole.csproj.DotSettings" />
   </ItemGroup>
 
