@@ -48,7 +48,7 @@ namespace MyExampleConsole
         // HttpClient is intended to be instantiated once per application, rather than per-use.
         static readonly HttpClient _httpClient = new HttpClient();
 
-        static async Task Main(string[] args)
+        static async Task Main()
         {
             ConsoleCommandLineInterpreter ccli = new ConsoleCommandLineInterpreter();
 
