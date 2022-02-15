@@ -139,8 +139,8 @@ namespace ItsMyConsole
                     Match match = Regex.Match(command, commandPattern.Pattern, commandPattern.RegexOptions);
                     if (match.Success) {
                         CommandTools tools = CreateTools(command, match);
-                        if (callback is Func<CommandTools, Task> funcAync)
-                            await funcAync(tools);
+                        if (callback is Func<CommandTools, Task> funcAsync)
+                            await funcAsync(tools);
                         else if (callback is Action<CommandTools> action)
                             action(tools);
                         return;
