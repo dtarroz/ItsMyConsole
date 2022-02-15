@@ -1,4 +1,6 @@
-﻿namespace ItsMyConsole
+﻿using System.Text.RegularExpressions;
+
+namespace ItsMyConsole
 {
     /// <summary>
     /// Options de configuration de la console
@@ -28,5 +30,12 @@
         /// (Par défaut : true)
         /// </summary>
         public bool TrimCommand { get; set; }
+
+        /// <summary>
+        /// Combinaison par défaut d'opérations de bits des valeurs d'énumération qui fournissent des options pour la
+        /// correspondance<br/>
+        /// (Par défaut: RegexOptions.None)
+        /// </summary>
+        public RegexOptions DefaultRegexOptions { get; set; }
     }
 }

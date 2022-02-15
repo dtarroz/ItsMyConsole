@@ -48,7 +48,7 @@ namespace ItsMyConsole
         /// <param name="pattern">L'expression régulière d'interprétation de la ligne de commande</param>
         /// <param name="callback">L'exécution de la ligne de commande</param>
         public void AddCommand(string pattern, Action<CommandTools> callback) {
-            AddPatternAndCallback(pattern, RegexOptions.None, callback);
+            AddPatternAndCallback(pattern, _options.DefaultRegexOptions, callback);
         }
 
         /// <summary>
@@ -57,7 +57,7 @@ namespace ItsMyConsole
         /// <param name="pattern">L'expression régulière d'interprétation de la ligne de commande</param>
         /// <param name="callback">L'exécution de la ligne de commande</param>
         public void AddCommand(string pattern, Func<CommandTools, Task> callback) {
-            AddPatternAndCallback(pattern, RegexOptions.None, callback);
+            AddPatternAndCallback(pattern, _options.DefaultRegexOptions, callback);
         }
 
         /// <summary>
