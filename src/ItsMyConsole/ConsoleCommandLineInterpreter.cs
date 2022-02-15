@@ -12,7 +12,6 @@ namespace ItsMyConsole
     public class ConsoleCommandLineInterpreter
     {
         private ConsoleOptions _options;
-        private Action<ConsoleOptions> _configureOptions;
         private readonly Dictionary<CommandPattern, object> _commandPatternCallbacks;
 
         /// <summary>
@@ -20,6 +19,17 @@ namespace ItsMyConsole
         /// </summary>
         public ConsoleCommandLineInterpreter() {
             _commandPatternCallbacks = new Dictionary<CommandPattern, object>();
+            _options = CreateDefaultOptions();
+        }
+
+        private static ConsoleOptions CreateDefaultOptions() {
+            return new ConsoleOptions {
+                Prompt = ">",
+                LineBreakBetweenCommands = false,
+                HeaderText = "",
+                TrimCommand = true,
+                DefaultRegexOptions = RegexOptions.None
+            };
         }
 
         /// <summary>
@@ -27,7 +37,9 @@ namespace ItsMyConsole
         /// </summary>
         /// <param name="configureOptions">Les options d'affichage de la console</param>
         public void Configure(Action<ConsoleOptions> configureOptions) {
-            _configureOptions = configureOptions;
+            if (configureOptions == null)
+                throw new ArgumentNullException(nameof(configureOptions));
+            configureOptions.Invoke(_options);
         }
 
         /// <summary>
@@ -89,7 +101,6 @@ namespace ItsMyConsole
         /// Lance de la console en attente des lignes de commandes
         /// </summary>
         public async Task RunAsync() {
-            ConfigureOptions();
             ShowHeader();
             string command = WaitNextCommand();
             while (!IsExitCommand(command)) {
@@ -97,20 +108,6 @@ namespace ItsMyConsole
                 ShowLineBreakBetweenCommands();
                 command = WaitNextCommand();
             }
-        }
-
-        private void ConfigureOptions() {
-            _options = CreateDefaultOptions();
-            _configureOptions?.Invoke(_options);
-        }
-
-        private static ConsoleOptions CreateDefaultOptions() {
-            return new ConsoleOptions {
-                Prompt = ">",
-                LineBreakBetweenCommands = false,
-                HeaderText = "",
-                TrimCommand = true
-            };
         }
 
         private void ShowHeader() {
