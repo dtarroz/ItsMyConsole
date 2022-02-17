@@ -32,10 +32,9 @@ namespace ItsMyConsole
         public bool TrimCommand { get; set; }
 
         /// <summary>
-        /// Combinaison par défaut d'opérations de bits des valeurs d'énumération qui fournissent des options pour la
-        /// correspondance<br/>
+        /// Options par défaut des expressions réguliéres pour l'interprétation d'une commande<br/>
         /// (Par défaut: RegexOptions.None)
         /// </summary>
-        public RegexOptions DefaultRegexOptions { get; set; }
+        public RegexOptions DefaultCommandRegexOptions { get; set; }
     }
 }

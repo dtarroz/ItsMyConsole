@@ -28,7 +28,7 @@ namespace ItsMyConsole
                 LineBreakBetweenCommands = false,
                 HeaderText = "",
                 TrimCommand = true,
-                DefaultRegexOptions = RegexOptions.None
+                DefaultCommandRegexOptions = RegexOptions.None
             };
         }
 
@@ -48,7 +48,7 @@ namespace ItsMyConsole
         /// <param name="pattern">L'expression régulière d'interprétation de la ligne de commande</param>
         /// <param name="callback">L'exécution de la ligne de commande</param>
         public void AddCommand(string pattern, Action<CommandTools> callback) {
-            AddPatternAndCallback(pattern, _options.DefaultRegexOptions, callback);
+            AddPatternAndCallback(pattern, _options.DefaultCommandRegexOptions, callback);
         }
 
         /// <summary>
@@ -57,7 +57,7 @@ namespace ItsMyConsole
         /// <param name="pattern">L'expression régulière d'interprétation de la ligne de commande</param>
         /// <param name="callback">L'exécution de la ligne de commande</param>
         public void AddCommand(string pattern, Func<CommandTools, Task> callback) {
-            AddPatternAndCallback(pattern, _options.DefaultRegexOptions, callback);
+            AddPatternAndCallback(pattern, _options.DefaultCommandRegexOptions, callback);
         }
 
         /// <summary>
