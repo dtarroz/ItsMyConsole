@@ -82,17 +82,29 @@ namespace ItsMyConsole
 
         private void AddPatternAndCallback(string pattern, RegexOptions regexOptions, object callback) {
             ThrowIfPatternAndCallbackInvalid(pattern, callback);
+            pattern = UpdatePattern(pattern);
+            ThrowIfPatternExists(pattern);
             _commandPatternCallbacks.Add(new CommandPattern {
                                              Pattern = pattern,
                                              RegexOptions = regexOptions
                                          }, callback);
         }
 
-        private void ThrowIfPatternAndCallbackInvalid(string pattern, object command) {
+        private static void ThrowIfPatternAndCallbackInvalid(string pattern, object command) {
             if (pattern == null)
                 throw new ArgumentNullException(nameof(pattern));
             if (command == null)
                 throw new ArgumentNullException(nameof(command));
+        }
+
+        private string UpdatePattern(string pattern) {
+            bool startExists = pattern.StartsWith("^");
+            bool endExists = pattern.EndsWith("$");
+            bool addStartEndAuto = _options.AddStartAndEndCommandPatternAuto && !startExists && !endExists;
+            return addStartEndAuto ? $"^{pattern}$" : pattern;
+        }
+
+        private void ThrowIfPatternExists(string pattern) {
             if (_commandPatternCallbacks.Keys.Any(k => k.Pattern == pattern))
                 throw new ArgumentException("Pattern déjà présent", nameof(pattern));
         }

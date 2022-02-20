@@ -33,8 +33,15 @@ namespace ItsMyConsole
 
         /// <summary>
         /// Options par défaut des expressions réguliéres pour l'interprétation d'une commande<br/>
-        /// (Par défaut: RegexOptions.None)
+        /// (Par défaut : RegexOptions.None)
         /// </summary>
         public RegexOptions DefaultCommandRegexOptions { get; set; }
+
+        /// <summary>
+        /// Indicateur pour ajouter automatiquement le symbole de début "^" et de fin "$" sur l'expression réguliére pour
+        /// l'interprétation d'une commande, lorsqu'ils ne sont pas présent<br/>
+        /// (Par défaut : false)
+        /// </summary>
+        public bool AddStartAndEndCommandPatternAuto { get; set; }
     }
 }
