@@ -101,8 +101,8 @@ Vous pouvez configurer les options de la Console en utilisant ```Configure```.
 | LineBreakBetweenCommands | Indicateur de présence de saut de ligne entre les lignes de commande | false |
 | HeaderText | Texte de l'entête de la console qui s'affiche en premier avant l'attente de la première commande | "" |
 | TrimCommand | Indicateur pour effectuer un trim en début et en fin de la ligne de commande avant son exécution | true |
-| DefaultCommandRegexOptions | Options par défaut des expressions réguliéres pour l'interprétation d'une commande | RegexOptions.None |
-| AddStartAndEndCommandPatternAuto | Indicateur pour ajouter automatiquement le symbole de début *"^"* et de fin *"$"* sur l'expression réguliére pour l'interprétation d'une commande, lorsqu'ils ne sont pas présent | false |
+| DefaultCommandRegexOptions | Options par défaut des expressions régulières pour l'interprétation d'une commande | RegexOptions.None |
+| AddStartAndEndCommandPatternAuto | Indicateur pour ajouter automatiquement le symbole de début *"^"* et de fin *"$"* sur l'expression régulière pour l'interprétation d'une commande, lorsqu'ils ne sont pas présent | false |
 
 ```cs
 ConsoleCommandLineInterpreter ccli = new ConsoleCommandLineInterpreter();
@@ -126,7 +126,7 @@ Vous pouvez ajouter des interprétations de commande en utilisant ```AddCommand`
 | regexOptions | *(facultatif)*<br/><br/>Combinaison d'opérations de bits des valeurs d'énumération qui fournissent des options pour la correspondance de l'expression régulière. *(exemple ```RegexOptions.IgnoreCase```)* [Lien vers la documentation](https://docs.microsoft.com/fr-fr/dotnet/api/system.text.regularexpressions.regexoptions?view=netstandard-2.0) |
 | callback | L'action (ou la fonction async) pour l'exécution de la commande associé au pattern |
 
-Si vous avez configuré ```AddStartAndEndCommandPatternAuto``` à ```true```, il ajoute automatiquement le symbole de début *"^"* et de fin *"$"* sur l'expression réguliére pour l'interprétation d'une commande, lorsqu'ils ne sont pas présent.
+Si vous avez configuré ```AddStartAndEndCommandPatternAuto``` à ```true```, il ajoute automatiquement le symbole de début *"^"* et de fin *"$"* sur l'expression régulière pour l'interprétation d'une commande, lorsqu'ils ne sont pas présent.
 
 Si vous ne spécifiez pas de valeur pour ```regexOptions```, il prendra la valeur configuré sur ```DefaultCommandRegexOptions``` (par défaut : ```RegexOptions.None```).
 
