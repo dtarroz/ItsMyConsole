@@ -11,7 +11,7 @@ namespace ItsMyConsole
     /// </summary>
     public class ConsoleCommandLineInterpreter
     {
-        private ConsoleOptions _options;
+        private readonly ConsoleOptions _options;
         private readonly Dictionary<CommandPattern, object> _commandPatternCallbacks;
 
         /// <summary>
@@ -173,14 +173,18 @@ namespace ItsMyConsole
 
         private async Task RunCommandAsync(string command) {
             try {
-                foreach (var (commandPattern, callback) in _commandPatternCallbacks.Select(x => (x.Key, x.Value))) {
+                foreach ((CommandPattern commandPattern, object callback) in _commandPatternCallbacks.Select(x => (x.Key, x.Value))) {
                     Match match = Regex.Match(command, commandPattern.Pattern, commandPattern.RegexOptions);
                     if (match.Success) {
                         CommandTools tools = CreateTools(command, match);
-                        if (callback is Func<CommandTools, Task> funcAsync)
-                            await funcAsync(tools);
-                        else if (callback is Action<CommandTools> action)
-                            action(tools);
+                        switch (callback) {
+                            case Func<CommandTools, Task> funcAsync:
+                                await funcAsync(tools);
+                                break;
+                            case Action<CommandTools> action:
+                                action(tools);
+                                break;
+                        }
                         return;
                     }
                 }
