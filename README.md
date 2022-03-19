@@ -29,6 +29,7 @@ Le Framework ```ItsMyConsole``` met en place pour vous :
     - Saut de ligne *(ou non)* entre chaque attente d'une nouvelle saisie de commande
     - L'ajout automatique du symbole de début et de fin pour le pattern de la commande
     - Les options par défaut pour la correspondance au pattern de commande *(exemple : ignorer la casse)*
+    - La couleur du texte *(le texte de l'entête, le prompt et la commande saisie)*
 
 ## Getting Started
 1. Créer un projet **"Application Console .Net"** avec le nom *"MyExampleConsole"*
@@ -103,6 +104,9 @@ Vous pouvez configurer les options de la Console en utilisant ```Configure```.
 | TrimCommand | Indicateur pour effectuer un trim en début et en fin de la ligne de commande avant son exécution | true |
 | DefaultCommandRegexOptions | Options par défaut des expressions régulières pour l'interprétation d'une commande | RegexOptions.None |
 | AddStartAndEndCommandPatternAuto | Indicateur pour ajouter automatiquement le symbole de début *"^"* et de fin *"$"* sur l'expression régulière pour l'interprétation d'une commande, lorsqu'ils ne sont pas présent | false |
+| HeaderTextColor | Couleur du texte de l'entête de la console | Couleur par défaut |
+| PromptColor | Couleur du texte du prompt | Couleur par défaut |
+| CommandColor | Couleur du texte saisie de la commande | Couleur par défaut |
 
 ```cs
 ConsoleCommandLineInterpreter ccli = new ConsoleCommandLineInterpreter();
@@ -163,6 +167,7 @@ Vous pouvez ajouter d'autres outils pour étendre et simplifier vos implémentat
 
 - [Azure Dev Ops](https://github.com/dtarroz/ItsMyConsole.Tools.AzureDevOps) : Création et modification des WorkItems sur Azure Dev Ops 
 - [Cache Global](https://github.com/dtarroz/ItsMyConsole.Tools.GlobalCache) : Cache accessible par toutes les actions des commandes
+- [Presse papier Windows](https://github.com/dtarroz/ItsMyConsole.Tools.Windows.Clipboard) : Lecture et écriture dans le presse papier Windows
 
 ## Comment créer ses propres Outils ?
 *coming soon*
