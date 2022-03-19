@@ -191,7 +191,7 @@ namespace ItsMyConsole
                 throw new Exception("Commande non trouvée");
             }
             catch (Exception ex) {
-                Console.WriteLine("Erreur : " + ex.Message);
+                ConsoleWriteLineColor("Erreur : " + ex.Message, ConsoleColor.DarkRed);
             }
         }
 
