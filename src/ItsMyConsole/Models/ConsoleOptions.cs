@@ -1,4 +1,5 @@
-﻿using System.Text.RegularExpressions;
+﻿using System;
+using System.Text.RegularExpressions;
 
 namespace ItsMyConsole
 {
@@ -43,5 +44,23 @@ namespace ItsMyConsole
         /// (Par défaut : false)
         /// </summary>
         public bool AddStartAndEndCommandPatternAuto { get; set; }
+
+        /// <summary>
+        /// Couleur du texte de l'entête de la console.<br/>
+        /// (Par défaut : Couleur standard de la console)
+        /// </summary>
+        public ConsoleColor HeaderTextColor { get; set; }
+
+        /// <summary>
+        /// Couleur du texte du prompt.<br/>
+        /// (Par défaut : Couleur standard de la console)
+        /// </summary>
+        public ConsoleColor PromptColor { get; set; }
+
+        /// <summary>
+        /// Couleur du texte saisie de la commande.<br/>
+        /// (Par défaut : Couleur standard de la console)
+        /// </summary>
+        public ConsoleColor CommandColor { get; set; }
     }
 }

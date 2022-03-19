@@ -28,7 +28,11 @@ namespace ItsMyConsole
                 LineBreakBetweenCommands = false,
                 HeaderText = "",
                 TrimCommand = true,
-                DefaultCommandRegexOptions = RegexOptions.None
+                DefaultCommandRegexOptions = RegexOptions.None,
+                AddStartAndEndCommandPatternAuto = false,
+                HeaderTextColor = Console.ForegroundColor,
+                PromptColor = Console.ForegroundColor,
+                CommandColor = Console.ForegroundColor
             };
         }
 
@@ -124,21 +128,43 @@ namespace ItsMyConsole
 
         private void ShowHeader() {
             if (!string.IsNullOrEmpty(_options.HeaderText))
-                Console.WriteLine(_options.HeaderText);
+                ConsoleWriteLineColor(_options.HeaderText, _options.HeaderTextColor);
+        }
+
+        private static void ConsoleWriteLineColor(string text, ConsoleColor consoleColor) {
+            ConsoleColor currentColor = Console.ForegroundColor;
+            Console.ForegroundColor = consoleColor;
+            Console.WriteLine(text);
+            Console.ForegroundColor = currentColor;
         }
 
         private string WaitNextCommand() {
             string command;
             do {
                 PromptCommand();
-                command = Console.ReadLine() ?? "";
+                command = ConsoleReadLineColor(_options.CommandColor) ?? "";
                 command = _options.TrimCommand ? command.Trim() : command;
             } while (string.IsNullOrEmpty(command));
             return command;
         }
 
         private void PromptCommand() {
-            Console.Write(_options.Prompt);
+            ConsoleWriteColor(_options.Prompt, _options.PromptColor);
+        }
+
+        private static void ConsoleWriteColor(string text, ConsoleColor consoleColor) {
+            ConsoleColor currentColor = Console.ForegroundColor;
+            Console.ForegroundColor = consoleColor;
+            Console.Write(text);
+            Console.ForegroundColor = currentColor;
+        }
+
+        private static string ConsoleReadLineColor(ConsoleColor consoleColor) {
+            ConsoleColor currentColor = Console.ForegroundColor;
+            Console.ForegroundColor = consoleColor;
+            string readLine = Console.ReadLine();
+            Console.ForegroundColor = currentColor;
+            return readLine;
         }
 
         private static bool IsExitCommand(string command) {
