@@ -11,7 +11,7 @@
     <Description>Framework pour une application console qui facilite l'implémentation d'interpréteur de commande</Description>
     <PackageProjectUrl>https://github.com/dtarroz/ItsMyConsole</PackageProjectUrl>
     <PackageIcon>logo.png</PackageIcon>
-    <PackageTags>console cli</PackageTags>
+    <PackageTags>console cli framework</PackageTags>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
   </PropertyGroup>
 
