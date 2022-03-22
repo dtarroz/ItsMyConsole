@@ -40,10 +40,11 @@ namespace ItsMyConsole
         /// Configuration des options d'affichages de la console
         /// </summary>
         /// <param name="configureOptions">Les options d'affichage de la console</param>
-        public void Configure(Action<ConsoleOptions> configureOptions) {
+        public ConsoleCommandLineInterpreter Configure(Action<ConsoleOptions> configureOptions) {
             if (configureOptions == null)
                 throw new ArgumentNullException(nameof(configureOptions));
             configureOptions.Invoke(_options);
+            return this;
         }
 
         /// <summary>
@@ -51,8 +52,9 @@ namespace ItsMyConsole
         /// </summary>
         /// <param name="pattern">L'expression régulière d'interprétation de la ligne de commande</param>
         /// <param name="callback">L'exécution de la ligne de commande</param>
-        public void AddCommand(string pattern, Action<CommandTools> callback) {
+        public ConsoleCommandLineInterpreter AddCommand(string pattern, Action<CommandTools> callback) {
             AddPatternAndCallback(pattern, _options.DefaultCommandRegexOptions, callback);
+            return this;
         }
 
         /// <summary>
@@ -60,8 +62,9 @@ namespace ItsMyConsole
         /// </summary>
         /// <param name="pattern">L'expression régulière d'interprétation de la ligne de commande</param>
         /// <param name="callback">L'exécution de la ligne de commande</param>
-        public void AddCommand(string pattern, Func<CommandTools, Task> callback) {
+        public ConsoleCommandLineInterpreter AddCommand(string pattern, Func<CommandTools, Task> callback) {
             AddPatternAndCallback(pattern, _options.DefaultCommandRegexOptions, callback);
+            return this;
         }
 
         /// <summary>
@@ -70,8 +73,9 @@ namespace ItsMyConsole
         /// <param name="pattern">L'expression régulière d'interprétation de la ligne de commande</param>
         /// <param name="regexOptions">Combinaison d'opérations de bits des valeurs d'énumération qui fournissent des options pour la correspondance</param>
         /// <param name="callback">L'exécution de la ligne de commande</param>
-        public void AddCommand(string pattern, RegexOptions regexOptions, Action<CommandTools> callback) {
+        public ConsoleCommandLineInterpreter AddCommand(string pattern, RegexOptions regexOptions, Action<CommandTools> callback) {
             AddPatternAndCallback(pattern, regexOptions, callback);
+            return this;
         }
 
         /// <summary>
@@ -80,8 +84,9 @@ namespace ItsMyConsole
         /// <param name="pattern">L'expression régulière d'interprétation de la ligne de commande</param>
         /// <param name="regexOptions">Combinaison d'opérations de bits des valeurs d'énumération qui fournissent des options pour la correspondance</param>
         /// <param name="callback">L'exécution de la ligne de commande</param>
-        public void AddCommand(string pattern, RegexOptions regexOptions, Func<CommandTools, Task> callback) {
+        public ConsoleCommandLineInterpreter AddCommand(string pattern, RegexOptions regexOptions, Func<CommandTools, Task> callback) {
             AddPatternAndCallback(pattern, regexOptions, callback);
+            return this;
         }
 
         private void AddPatternAndCallback(string pattern, RegexOptions regexOptions, object callback) {
