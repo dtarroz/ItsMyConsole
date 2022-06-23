@@ -6,7 +6,7 @@ Framework pour application Console .Net pour la construction d'interpréteur de 
 
 ## Sommaire
 - [Pourquoi faire ?](#pourquoi-faire-)
-- [Getting started](#getting-started)
+- [Getting Started](#getting-started)
 - [Configurer les options](#configurer-les-options)
 - [Ajouter des interprétations de commande](#ajouter-des-interprétations-de-commande)
 - [Les outils](#les-outils)
@@ -32,7 +32,7 @@ Le Framework ```ItsMyConsole``` met en place pour vous :
     - Les options par défaut pour la correspondance au pattern de commande *(exemple : ignorer la casse)*
     - La couleur du texte *(le texte de l'entête, le prompt et la commande saisie)*
 
-## Getting started
+## Getting Started
 1. Créer un projet **"Application Console .Net"** avec le nom *"MyExampleConsole"*
 2. Ajouter ```ItsMyConsole``` au projet depuis le gestionnaire de package NuGet
 3. Pour cet exemple, ajouter en plus ```Newtonsoft.Json``` au projet depuis le gestionnaire de package NuGet
