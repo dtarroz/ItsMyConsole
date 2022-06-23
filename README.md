@@ -6,12 +6,13 @@ Framework pour application Console .Net pour la construction d'interpréteur de 
 
 ## Sommaire
 - [Pourquoi faire ?](#pourquoi-faire-)
-- [Getting Started](#getting-started)
+- [Getting started](#getting-started)
 - [Configurer les options](#configurer-les-options)
 - [Ajouter des interprétations de commande](#ajouter-des-interprétations-de-commande)
+- [Les outils](#les-outils)
 - [Commande "exit"](#commande-exit)
-- [Ajouter d'autres Outils](#ajouter-dautres-outils)
-- [Comment créer ses propres Outils ?](#comment-créer-ses-propres-outils-)
+- [Ajouter d'autres outils](#ajouter-dautres-outils)
+- [Comment créer ses propres outils ?](#comment-créer-ses-propres-outils-)
 
 ## Pourquoi faire ?
 Vous allez pouvoir créer une application Console .Net qui attend la saisie d'une ligne de commande pour lancer vos propres actions spécifiques. 
@@ -31,7 +32,7 @@ Le Framework ```ItsMyConsole``` met en place pour vous :
     - Les options par défaut pour la correspondance au pattern de commande *(exemple : ignorer la casse)*
     - La couleur du texte *(le texte de l'entête, le prompt et la commande saisie)*
 
-## Getting Started
+## Getting started
 1. Créer un projet **"Application Console .Net"** avec le nom *"MyExampleConsole"*
 2. Ajouter ```ItsMyConsole``` au projet depuis le gestionnaire de package NuGet
 3. Pour cet exemple, ajouter en plus ```Newtonsoft.Json``` au projet depuis le gestionnaire de package NuGet
@@ -151,6 +152,8 @@ ccli.AddCommand("^delay$", async tools =>
 });
 ```
 
+## Les outils
+
 Dans l'implémentation de l'action, vous avez accès à des outils *(nommé ```tools``` dans l'exemple ci-dessus)*. Les outils par défaut sont une aide pour l'interprétation de la ligne de commande saisie mais Il est possible d'ajouter d'autres **"outils"** avec NuGet ([exemples](#ajouter-dautres-outils)). Vous avez aussi la possibilité [d'en créer vous même](#comment-créer-ses-propres-outils-).
 
 | Nom de l'outil | Description |
@@ -162,7 +165,7 @@ Dans l'implémentation de l'action, vous avez accès à des outils *(nommé ```t
 ## Commande "exit"
 Pour fermer l'application Console, vous avez par défaut l'interprétation de la commande ```exit``` *(insensible à la casse)* inclus dans le Framework.
 
-## Ajouter d'autres Outils
+## Ajouter d'autres outils
 Vous pouvez ajouter d'autres outils pour étendre et simplifier vos implémentations d'actions de vos commandes :
 
 - [Azure Dev Ops](https://github.com/dtarroz/ItsMyConsole.Tools.AzureDevOps) : Création et modification des WorkItems sur Azure Dev Ops 
