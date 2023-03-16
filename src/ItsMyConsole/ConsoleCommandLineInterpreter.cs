@@ -119,7 +119,7 @@ namespace ItsMyConsole
         }
 
         /// <summary>
-        /// Lance de la console en attente des lignes de commandes
+        /// Lancement de la console en attente des lignes de commandes
         /// </summary>
         public async Task RunAsync() {
             ShowHeader();
@@ -129,6 +129,14 @@ namespace ItsMyConsole
                 ShowLineBreakBetweenCommands();
                 command = WaitNextCommand();
             }
+        }
+
+        /// <summary>
+        /// Lancement de la console et exécute uniquement la ligne de commande  
+        /// </summary>
+        public async Task RunAsync(string commandLine) {
+            ShowHeader();
+            await RunCommandAsync(commandLine);
         }
 
         private void ShowHeader() {
