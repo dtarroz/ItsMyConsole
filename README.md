@@ -174,3 +174,17 @@ Vous pouvez ajouter d'autres outils pour étendre et simplifier vos implémentat
 
 ## Comment créer ses propres Outils ?
 *coming soon*
+
+## Lancement de la console
+
+Vous pouvez lancer la console et les interprétations des commandes en utilisant ```RunAsync```.
+
+```cs
+await ccli.RunAsync();
+```
+
+Vous avez aussi la possibilité de passer une commande directement pour exécuter seulement celle-ci.
+
+```cs
+await ccli.RunAsync("sw sky");
+```
