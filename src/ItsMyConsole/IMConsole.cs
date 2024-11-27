@@ -60,7 +60,7 @@ namespace ItsMyConsole
         /// <summary>
         /// Minimise la fenêtre de la console après un délai. Cette méthode fonctionne uniquement sous Windows.
         /// </summary>
-        /// <param name="delay">Le délai en secondes</param>
+        /// <param name="delay">Le délai en secondes (par défaut : aucun délai)</param>
         public static async Task MinimizeAsync(int delay = 0) {
             if (delay > 0)
                 await Task.Delay(delay * 1000);
