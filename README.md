@@ -11,6 +11,7 @@ Framework pour application Console .Net pour la construction d'interpréteur de 
 - [Ajouter des interprétations de commande](#ajouter-des-interprétations-de-commande)
 - [Les outils](#les-outils)
 - [Commande "exit"](#commande-exit)
+- [Méthodes d'extension de la console](#méthodes-dextension-de-la-console)
 - [Ajouter d'autres outils](#ajouter-dautres-outils)
 - [Comment créer ses propres outils ?](#comment-créer-ses-propres-outils-)
 - [Lancement de la console](#lancement-de-la-console)
@@ -165,6 +166,76 @@ Dans l'implémentation de l'action, vous avez accès à des outils *(nommé ```t
 
 ## Commande "exit"
 Pour fermer l'application Console, vous avez par défaut l'interprétation de la commande ```exit``` *(insensible à la casse)* inclus dans le Framework.
+
+## Méthodes d'extension de la console
+
+### Ecrire en couleur dans la console
+
+Vous pouvez écrire en couleur dans la console en utilisant ```IMConsole.Write``` ou ```IMConsole.WriteLine```.
+
+| Nom de l'argument | Description |
+| :---------------- | :---------- |
+| value | Écrit la représentation textuelle de l'objet spécifié dans le flux de sortie standard de la console |
+| foregroundColor | *(facultatif)* La couleur du texte (par défaut : couleur par défaut de console) |
+| backgroundColor | *(facultatif)* La couleur d'arriére plan (par défaut : couleur par défaut de console) |
+
+```cs
+IMConsole.Write("Message en jaune, ", ConsoleColor.Yellow);
+IMConsole.WriteLine("message en rouge", ConsoleColor.Red);
+
+IMConsole.Write("Message en vert avec un fond cyan", ConsoleColor.DarkGreen, ConsoleColor.Cyan);
+```
+
+Vous avez accès à une liste de couleur spécifiques 
+
+| Nom de la couleur | Description |
+| :---------------- | :---------- |
+| IMConsoleColor.Muted | Couleur pour une réprésentation de type "mutée" |
+| IMConsoleColor.Warning | Couleur pour une réprésentation de type "avertissement" |
+| IMConsoleColor.Danger | Couleur pour une réprésentation de type "danger" |
+| IMConsoleColor.Success | Couleur pour une réprésentation de type "succès" |
+| IMConsoleColor.Info | Couleur pour une réprésentation de type "information" |
+
+```cs
+IMConsole.WriteLine("Message d'erreur", IMConsoleColor.Danger);
+```
+
+### Ecrire un ou plusieurs saut de lignes
+
+Vous pouvez écrire des saut de lignes dans la console en utilisant ```IMConsole.LineBreak```.
+
+| Nom de l'argument | Description |
+| :---------------- | :---------- |
+| count | *(facultatif)* Le nombre de terminateur de ligne (par défaut : 1) |
+
+```cs
+IMConsole.LineBreak();
+
+IMConsole.LineBreak(2);
+```
+
+### Minimiser la fenêtre de la console
+
+Vous pouvez minimiser la fenêtre de la console en utilisant ```IMConsole.Minimize```. Cette méthode fonctionne uniquement sous Windows.
+Vous pouvez ajouter un délai en secondes en utilisant ```IMConsole.MinimizeAsync```.
+
+| Nom de l'argument | Description |
+| :---------------- | :---------- |
+| delay | *(facultatif)* Le délai en secondes (par défaut : aucun délai) |
+
+```cs
+IMConsole.Confirm("Voulez-vous continuer ?");
+```
+
+### Attendre une confirmation de l'utilisateur
+
+Vous pouvez attendre une confirmation de l'utilisateur en utilisant ```IMConsole.Confirm```.
+
+| Nom de l'argument | Description |
+| :---------------- | :---------- |
+| message | Le message de confirmation |
+| foregroundColor | *(facultatif)* La couleur du texte (par défaut : couleur par défaut de console) |
+| backgroundColor | *(facultatif)* La couleur d'arriére plan (par défaut : couleur par défaut de console) |
 
 ## Ajouter d'autres outils
 Vous pouvez ajouter d'autres outils pour étendre et simplifier vos implémentations d'actions de vos commandes :
